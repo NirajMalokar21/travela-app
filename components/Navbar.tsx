@@ -3,8 +3,6 @@ import Link from "next/link"
 import { NAV_LINKS } from "../constants"
 import Button from "./Button"
 
-
-
 const Navbar = () => {
   return (
     <nav className="flexBetween padding-container relatice z-30 py-5 flex-row max-container">
