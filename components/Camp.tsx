@@ -108,6 +108,13 @@ const Camp = () => {
           possibility of getting lost is very large. That&apos;s why we are here for those of you who 
           want to start an adventure
         </p>
+        <Image 
+            src="/quote.svg"
+            alt="camp-2"
+            width={186}
+            height={219}
+            className="camp-quote"
+          />
       </div>
 
     </section>
