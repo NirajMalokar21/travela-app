@@ -1,7 +1,27 @@
+"use client"
+import { useGSAP } from '@gsap/react'
 import Image from 'next/image'
 import React from 'react'
+import gsap from "gsap";
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const Guide = () => {
+  useGSAP(() => {
+    gsap.to('#anim-box', {
+      x: 0,
+      opacity: 1,
+      duration: 1.5,
+        ease: 'power1.inOut',
+      scrollTrigger: {
+        trigger: "#anim-trig",
+        start: 'top 90%', 
+        end: 'bottom 80%',
+        once: true ,
+      },
+    })
+  }, [])
   return (
     <section className='flexBetween flex-col lg:px-10 pb-12'>
       <div className='flex flex-col lg:flex-row lg:justify-between pb-16 w-full padding-container'>
@@ -23,7 +43,7 @@ const Guide = () => {
           and friends to have fun in the wilderness through the valley and reach the top of the mountain
         </div>
       </div>
-      <div className="flexCenter relative w-full h-[340px] lg:h-[550px]">
+      <div id='anim-trig' className="flexCenter relative w-full h-[340px] lg:h-[550px]">
         <Image 
           src='/boat.png'
           alt='Boat'
@@ -31,8 +51,8 @@ const Guide = () => {
           objectFit='cover'
           className='top-0 left-0 lg:rounded-5xl mx-auto'
         />
-        <div className='absolute z-20 md:top-18 lg:top-20 md:left-20 px-4 py-10 bg-white h-[250px] w-[300px] 
-        rounded-5xl flexStart flex-row justify-start'>
+        <div id='anim-box' className='absolute z-20 md:top-18 lg:top-20 md:left-20 px-4 py-10 bg-white h-[250px] w-[300px] 
+        rounded-5xl flexStart flex-row justify-start opacity-0 translate-x-64'>
           <Image 
             src='/meter.svg'
             alt='meter'
