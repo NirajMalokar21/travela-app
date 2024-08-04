@@ -1,12 +1,24 @@
+"use client"
 import Image from "next/image"
 import Button from "./Button"
+import { useGSAP } from "@gsap/react"
+import gsap from "gsap"
 
 const GetApp = () => {
+  useGSAP(() => {
+    gsap.to('#anim-text', {
+      scale: 1.15,
+      yoyo: true,
+      duration: 2,
+      ease: 'power1.inOut',
+      repeat: -1
+    })
+  }, [])
   return (
     <section className="flexCenter w-full flex-col pb-[100px]">
       <div className="get-app">
         <div className="z-20 flex w-full flex-1 flex-col items-start justify-center gap-12">
-          <h2 className="bold-40 lg:bold-64 xl:max-w-[320px]">Get for free now!</h2>
+          <h2 id="anim-text" className="bold-40 lg:bold-64 xl:max-w-[320px]">Get for free now!</h2>
           <p className="regular-16 text-gray-10">Available on iOS and Android</p>
           <div className="flex w-full flex-col gap-3 whitespace-nowrap xl:flex-row">
             <Button 

@@ -1,8 +1,29 @@
+"use client"
 import { FEATURES } from '@/constants'
 import Image from 'next/image'
-import React from 'react'
+import gsap from "gsap";
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useGSAP } from '@gsap/react';
+
+gsap.registerPlugin(ScrollTrigger)
 
 const Features = () => {
+  useGSAP(() => {
+    gsap.to('.anim-scroll', {
+      y: 0,
+      opacity: 1,
+      duration: 1.5,
+      delay: 1.5,
+      ease: 'power1.inOut',
+      scrollTrigger: {
+        trigger: "#anim-trig",
+        start: 'top 90%', 
+        end: 'bottom 80%',
+        once: true ,
+      },
+      stagger: 0.5
+    })
+  }, [])
   return (
     <section className='flex-row flex justify-start items-center overflow-hidden 
     bg-feature-bg max-md:bg-center lg:bg-left bg-no-repeat py-4 h-full w-full lg:pb-24'>
@@ -29,16 +50,17 @@ const Features = () => {
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 w-full'>
           {FEATURES.map((feat,i)=>(
             <div
+              id='anim-trig'
               key={i}
-              className='flex flex-col gap-6 lg:w-[300px]'
+              className='flex flex-col gap-6 lg:w-[300px] anim-scroll -translate-y-64 opacity-0'
             >
-              <div className='bg-green-50 w-[60px] h-[60px] rounded-full flexCenter'>
+              <div className='bg-green-50 w-[60px] h-[60px]  rounded-full flexCenter'>
                 <Image
                   src={feat.icon}
                   alt='map'
                   width={40}
                   height={40}
-                  className='lg:mx-4'
+                  className='lg:mx-4 '
                 />
               </div>
               <p className='bold-20 lg:bold-32'>{feat.title}</p>
