@@ -1,4 +1,4 @@
-import React from 'react'
+"use client"
 import {
   Carousel,
   CarouselContent,
@@ -8,6 +8,11 @@ import {
 } from "@/components/ui/carousel"
 import Image from 'next/image'
 import { PEOPLE_URL } from '@/constants'
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 interface Props {
   title?: string,
@@ -50,16 +55,37 @@ const CampDetails = ({title, location, peopleJoined}: Props) => {
 }
 
 const Camp = () => {
-  const largeStr = 'lg:w-[650px] lg:h-[450px] lg:absolute lg:right-12 lg:bottom-8 lg:p-12 lg:gap-4'
+  const largeStr = 'lg:w-[650px] lg:h-[450px] lg:absolute lg:right-12 lg:bottom-8 lg:p-12 lg:gap-4';
+
+  useGSAP(() => {
+    gsap.to('.text-anim', {
+      y: 0,
+      opacity: 1,
+      duration: 1.5,
+        ease: 'power1.inOut',
+      scrollTrigger: {
+        trigger: "#text-anim",
+        start: 'top 90%', 
+        end: 'bottom 80%',
+        scrub: true, 
+        once: true ,
+        markers: true
+      },
+      stagger: 0.5
+    })
+  }, []);
+
   return (
     <section className='2xl:max-container relative flex flex-col py-10 lg:mb-10 lg:py-20
     xl:mb-20 lg:h-[950px]'>
       <div className='lg:px-12'>
-        <Carousel opts={{
-          align: "center",
-          loop: true,
-          duration: 50
-        }}>
+        <Carousel
+          opts={{
+            align: "center",
+            loop: true,
+            duration: 50,
+          }}
+        >
           <CarouselContent>
             <CarouselItem>
               <div className='relative w-full h-[340px] lg:h-[650px]'>
@@ -98,12 +124,13 @@ const Camp = () => {
           <CarouselNext />
         </Carousel>
       </div>
-      <div className={`flex items-start justify-start flex-col gap-3 bg-green-50 px-2 py-4 mx-8 mt-8 rounded-5xl
+      <div id="text-anim" className={`flex items-start justify-start flex-col gap-3 bg-green-50 px-2 py-4 mx-8 
+      mt-8 rounded-5xl
         ${largeStr}`}>
-        <h2 className='text-white regular-24 lg:regular-64 px-4 pt-4'>
+        <h2 className='text-white regular-24 lg:regular-64 px-4 pt-4 text-anim translate-y-48 opacity-0'>
           <span className='bold-24 lg:bold-64'>Feeling Lost</span> And Not Knowing The Way?
         </h2>
-        <p className='text-white regular-16 lg:regular-16 px-4 pb-4'>
+        <p className='text-white regular-16 lg:regular-16 px-4 pb-4 text-anim translate-y-48 opacity-0'>
           Starting from the anxiety of the climbers when visiting a new climbing location, the 
           possibility of getting lost is very large. That&apos;s why we are here for those of you who 
           want to start an adventure
