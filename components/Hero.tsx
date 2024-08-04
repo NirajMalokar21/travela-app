@@ -1,12 +1,30 @@
+"use client"
 import Image from "next/image"
 import Button from "./Button"
+import { useGSAP } from "@gsap/react"
+import gsap from "gsap"
 
 const Hero = () => {
+  useGSAP(() => {
+    gsap.to('#intro', {
+      x: 0,
+      opacity: 1,
+      duration: 1.5,
+      ease: 'power1.inOut'
+    })
+
+    gsap.to('#black-box', {
+      y: 0,
+      opacity: 1,
+      duration: 1.5,
+      ease: 'power1.inOut'
+    })
+  }, [])
   return (
     <section className='max-container padding-container 
     flex flex-col gap-20 py-6 pb-32 md:gap-28 lg:py-8 xl:flex-row'>
       <div className="hero-map lg:translate-x-32 lg:translate-y-16"/>
-      <div className="relative z-20 flex flex-1 flex-col pr-20 xl:w-1/2">
+      <div id="intro" className="relative z-20 flex flex-1 flex-col pr-20 xl:w-1/2 translate-x-48 opacity-0">
         <Image 
           src='/camp.svg'
           alt="camp"
@@ -52,7 +70,8 @@ const Hero = () => {
         </div>
 
         <div className="relative flex flex-1 items-start">
-            <div className="relative z-20 flex w-[268px] flex-col gap-8 rounded-3xl bg-green-90 px-7 py-8">
+            <div id="black-box" className="relative z-20 flex w-[268px] flex-col gap-8 rounded-3xl 
+            bg-green-90 px-7 py-8 -translate-y-48 opacity-0">
 
               <div className="flex flex-col gap-6">
                 <div className="flexBetween">
